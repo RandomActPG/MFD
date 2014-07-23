@@ -11,6 +11,7 @@
 Adafruit_RGBLCDShield lcd = Adafruit_RGBLCDShield();
 Adafruit_MCP9808 tempsensor = Adafruit_MCP9808();
 
+int mode = 1;
 
 void setup() {
   Serial.begin(9600);
@@ -20,40 +21,39 @@ void setup() {
 
 void temp () {
   float c = tempsensor.readTempC();
-  lcd.setCursor(0,0);
-  lcd.print("Current Temp.");
+  if (mode = 1) {
+      lcd.setCursor(0,0);
+      lcd.print("Current Temp.");
+      lcd.setCursor(6,1);
+      lcd.print("deg. C");
+  }
+  lcd.setCursor(0,1);
+  lcd.print("      "); // Clear the field
   lcd.setCursor(0,1);
   lcd.print(c);
-  lcd.setCursor(6,1);
-  lcd.print("deg. C");
 }
+
 
 void loop() {
-  temp();
-}
-
-//this is the button-driven code, not used yet//
-/*void loop() {
   uint8_t buttons = lcd.readButtons();
 
   if (buttons) {
     lcd.clear();
     lcd.setCursor(0,0);
     if (buttons & BUTTON_UP) {
-      lcd.print("UP ");
+      mode = 1;
     }
     if (buttons & BUTTON_DOWN) {
-      lcd.print("DOWN ");
+      mode = 2;
     }
     if (buttons & BUTTON_LEFT) {
-      lcd.print("LEFT ");
+      mode = 3;
     }
     if (buttons & BUTTON_RIGHT) {
-      lcd.print("RIGHT ");
+      mode = 4;
     }
     if (buttons & BUTTON_SELECT) {
-      temp();}
-    }
- }
-*/
- 
+      mode = 5;
+  }
+}
+}
